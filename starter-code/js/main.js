@@ -15,7 +15,7 @@
     //Modificar la lógica
     game.renderBlockers(ctx);
     game.collisionDetection(ctx);
-    //game.wonPoints(ctx, canvasSize);
+    game.wonPoints(ctx, canvasSize);
     requestAnimationFrame(update);
 
    }
