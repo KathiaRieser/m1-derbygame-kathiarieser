@@ -2,13 +2,21 @@ function Jammer() {
   this.x = 10; //heigh
   this.y = 390; //480-100
   this.scale = 1; //158/319;
+  this.width = 90 * this.scale;
+  this.heigh = 90;
   this.img = new Image();
-  this.img.src = "images/rd-jammer.png";
+  this.img.src = "images/rd-jammer.png"; //"images/rd-jammer.gif";
+
+  this.points = 0;
 }
 
-Jammer.prototype.render = function (ctx) { 
-    ctx.drawImage(this.img, this.x, this.y, 90 * this.scale, 90); 
+//var now = Date.now();
+//var delta = 0;
 
+Jammer.prototype.render = function (ctx) { 
+
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.heigh); 
+  
 };
 
 
