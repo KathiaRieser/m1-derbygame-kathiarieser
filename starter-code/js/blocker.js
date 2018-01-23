@@ -1,6 +1,6 @@
 function Blocker(canvasSize, ptLanzamiento) {
   this.x =  canvasSize.w-60; //480;
-  this.y = (canvasSize.h-20) - ptLanzamiento ;//canvasSize.h/2; //h=500-20 = 480
+  this.y = ptLanzamiento ;//canvasSize.h/2; //h=500-20 = 480
   this.scale = 1; //158/319;
   this.width = 60 * this.scale;
   this.heigh = 60;
@@ -14,9 +14,9 @@ Blocker.prototype.render = function(ctx){
   ctx.drawImage(this.img, this.x, this.y, this.width, this.heigh);
 };
 
-Blocker.prototype.update = function(){
+Blocker.prototype.update = function(speed){
 
-  this.x -= 1; 
+  this.x -= speed; 
 
 }
 

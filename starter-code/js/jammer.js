@@ -5,7 +5,7 @@ function Jammer() {
   this.width = 90 * this.scale;
   this.heigh = 90;
   this.img = new Image();
-  this.img.src = "images/rd-jammer.png"; //"images/rd-jammer.gif";
+  this.img.src = "images/rd-jammer.png"; //"images/rd-jammer.gif";  
 
   this.points = 0;
 }

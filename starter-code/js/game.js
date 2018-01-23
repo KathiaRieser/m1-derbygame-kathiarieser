@@ -22,6 +22,26 @@ Game.prototype.addBlocker = function(blocker){
 
 }
 
+// Slecciona una posición aleatoria en el eje Y entre 180px y 490px
+Game.prototype.givePositionY = function(){
+
+  var encontrado = false;
+  var position; 
+  while(!encontrado){
+    
+    position = Math.floor((Math.random()*480)) + 61;
+    //Hay que tener en cuenta la altura de las bloqueadoras 60px - 5px de la línea
+    // 180 - 55   > posición < 480 -60
+    if(position > 125 && position < 420){
+        
+        encontrado = true;
+    }
+  }
+  
+  return position;
+
+}
+
 //determinamos con el nivel el número de elementos que lanzamos (blocqueadoras)
 Game.prototype.giveLevel = function(level, canvasSize){
 
@@ -29,9 +49,10 @@ Game.prototype.giveLevel = function(level, canvasSize){
            
           case 1:
 
-            for(var i=1; i<= 1; i++){   //3
-                var ptLanza = 60 * i;//CUIDADO!!             
-                var blocker = new Blocker(canvasSize, ptLanza);
+            for(var i=1; i<= 3; i++){   //3
+                //var ptLanza = 70 * i;//CUIDADO!!  
+                var ptLanza = this.givePositionY();           
+                var blocker = new Blocker(canvasSize,ptLanza);
                 this.addBlocker(blocker);
 
             }
@@ -42,20 +63,17 @@ Game.prototype.giveLevel = function(level, canvasSize){
 
 Game.prototype.triggerBlockers = function(evel, canvasSize){
 
-
           this.giveLevel(evel,canvasSize);
 
 }
 
 Game.prototype.renderBlockers = function(ctx){
 
-  
+  var speed = 1;
   game.blockers.forEach(function(blocker){
 
-    //console.log(blocker);
-    blocker.update();
-    //console.log(blocker);
-    //console.log(ctx);
+    speed += 1;
+    blocker.update(speed);
     blocker.render(ctx);
 
   });
@@ -86,6 +104,7 @@ Game.prototype.collisionDetection = function(){
               this.jammer.heigh = 70;
               this.jammer.img.src = "images/rd-jammerCaida.png";
               this.cleanBlockers();
+              this.track.valueScore = 0;
            }  
 
       }
@@ -111,13 +130,15 @@ Game.prototype.wonPoints = function(ctx,canvasSize){
       }
 }
 
+
 Game.prototype.sumaPuntosYLimpia = function(x,canvasSize){
 
   this.cleanBlockersByPosition(x);// SOLO PRUEBA
   this.jammer.points += 1;
+  this.track.valueScore = this.jammer.points;
   //Lanzamos otra
-  var ptLanza = 100;
-  var blocker = new Blocker(canvasSize, ptLanza);
+  var ptLanza = this.givePositionY();//100;
+  var blocker = new Blocker(canvasSize,ptLanza);
   this.addBlocker(blocker);
 }
 
