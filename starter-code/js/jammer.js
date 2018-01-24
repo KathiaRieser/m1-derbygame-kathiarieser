@@ -11,6 +11,7 @@ function Jammer(maxSpeed) {
   this.img.src = "images/rd-jammerDrch.png"; //"images/rd-jammer.gif";  
   this.points = 0;
   this.delta = 0;
+  this.won = false;
 }
 
 Jammer.prototype.render = function (ctx) {
@@ -21,7 +22,7 @@ Jammer.prototype.render = function (ctx) {
   if(this.y >= 410) this.y = 410;
   if (this.x >= 930) this.x = 930;
   if (this.x <= 0) this.x = 0;
-  
+
   ctx.drawImage(this.img, this.x, this.y, this.width, this.heigh); 
 };
 

@@ -4,6 +4,8 @@ function Track(){
   this.textJam = "Jam: ";
   this.valueJam = 1;
   this.valueScore = 0;
+  this.img = new Image();
+  this.img.src = "images/rd-jammerDrch.png"; 
 
 }
 
@@ -26,5 +28,15 @@ Track.prototype.render = function(ctx, canvasSize){
 
   ctx.fillText(this.textScore, 610, 60);
   ctx.fillText(this.valueScore, 700, 60);
+
+}
+
+Track.prototype.renderWin = function(ctx, canvasSize){
+
+   this.render(ctx, canvasSize);
+   ctx.fillStyle = "#FDFEFE";
+   ctx.font = "40px 'Press Start 2P'";
+   ctx.drawImage(this.img, canvasSize.w/2-80, 240, 100, 100); 
+   ctx.fillText("YOU WIN!!", canvasSize.w/2-180, 400);
 
 }

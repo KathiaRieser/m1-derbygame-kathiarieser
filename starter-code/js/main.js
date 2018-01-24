@@ -18,11 +18,16 @@ function update() {
   game.jammer.delta = delta;
 
   ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
-  game.track.render(ctx, canvasSize);
-  game.collisionDetection(ctx);
-  game.wonPoints(ctx, canvasSize);
-  game.jammer.render(ctx);
-  game.renderBlockers(ctx);
+  if(game.jammer.won){
+    game.track.renderWin(ctx, canvasSize);
+  }else{
+    game.track.render(ctx, canvasSize);
+    game.collisionDetection(ctx);
+    game.wonPoints(ctx, canvasSize);
+    game.jammer.render(ctx);
+    game.renderBlockers(ctx);
+  }
+  
   requestAnimationFrame(update);
 
 }
