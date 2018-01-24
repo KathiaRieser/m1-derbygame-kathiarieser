@@ -19,10 +19,10 @@ function update() {
 
   ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
   game.track.render(ctx, canvasSize);
-  game.jammer.render(ctx);
-  game.renderBlockers(ctx);
   game.collisionDetection(ctx);
   game.wonPoints(ctx, canvasSize);
+  game.jammer.render(ctx);
+  game.renderBlockers(ctx);
   requestAnimationFrame(update);
 
 }

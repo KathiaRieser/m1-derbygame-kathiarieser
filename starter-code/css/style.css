@@ -1,12 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 body {
   text-align: left;
-  background-image: "images/rd-background.jpg";
-/*background-color: #111111;*/
+  /*background-image: url('../images/rd-background.jpg');
+  background-repeat: repeat;
+  background-size: contain, cover;*/
+  /*background-color: #111111;*/
 }
 
 body h1 {
   font-size: 30px;
+  font-family: 'Press Start 2P';
   text-transform: uppercase;
+  text-align: center;
 }
 
 body button {

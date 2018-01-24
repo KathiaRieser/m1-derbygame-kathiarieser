@@ -15,7 +15,6 @@ Blocker.prototype.render = function(ctx){
 };
 
 Blocker.prototype.update = function(speed){
-
   this.x -= speed; 
 
 }

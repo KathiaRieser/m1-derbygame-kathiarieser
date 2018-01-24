@@ -1,5 +1,4 @@
 function Game() {
-
   this.start = true;
   this.stop = false;
   this.level = 1;
@@ -8,14 +7,11 @@ function Game() {
   this.blockers = [];
 }
 
-
 Game.prototype.startGame = function () {
-
 
 }
 
 Game.prototype.addBlocker = function (blocker) {
-
   this.blockers.push(blocker);
 
 }
@@ -48,25 +44,32 @@ Game.prototype.giveLevel = function (level, canvasSize) {
     case 1:
 
       for (var i = 1; i <= 3; i++) { //3
-        //var ptLanza = 70 * i;//CUIDADO!!  
         var ptLanza = this.givePositionY();
         var blocker = new Blocker(canvasSize, ptLanza);
         this.addBlocker(blocker);
 
       }
       break;
+    
+    case 2:
+
+      for (var i = 1; i <= 3; i++) { //3
+        var ptLanza = this.givePositionY();
+        var blocker = new Blocker(canvasSize, ptLanza);
+        this.addBlocker(blocker);
+
+      }
+    break;
   }
 
 }
 
 Game.prototype.triggerBlockers = function (evel, canvasSize) {
-
   this.giveLevel(evel, canvasSize);
 
 }
 
 Game.prototype.renderBlockers = function (ctx) {
-
   var speed = 1;
   game.blockers.forEach(function (blocker) {
 
@@ -79,13 +82,11 @@ Game.prototype.renderBlockers = function (ctx) {
 }
 
 Game.prototype.cleanBlockers = function () {
-
   this.blockers = [];
 
 }
 
 Game.prototype.cleanBlockersByPosition = function (x) {
-
   this.blockers.splice(x, 1);
 }
 
