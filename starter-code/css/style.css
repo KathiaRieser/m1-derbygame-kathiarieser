@@ -1,5 +1,7 @@
 body {
   text-align: left;
+  background-image: "images/rd-background.jpg";
+/*background-color: #111111;*/
 }
 
 body h1 {

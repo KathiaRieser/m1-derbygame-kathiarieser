@@ -20,7 +20,7 @@ Track.prototype.render = function(ctx, canvasSize){
   ctx.fillStyle = "#FDFEFE";
   ctx.fillRect(250, 20, canvasSize.w/2, 60); //x,y
   ctx.fillStyle = "#943126";
-  ctx.font = '25px serif';
+  ctx.font = "25px 'undertalefont'";
   ctx.fillText(this.textJam, 260, 60);
   ctx.fillText(this.valueJam, 310, 60);
 

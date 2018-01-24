@@ -4,10 +4,8 @@ function Game() {
   this.stop = false;
   this.level = 1;
   this.track = new Track();
-  this.jammer = new Jammer();
+  this.jammer = new Jammer(110); // pasamos max speed
   this.blockers = [];
-
-
 }
 
 
@@ -104,6 +102,7 @@ Game.prototype.collisionDetection = function () {
         this.jammer.width = 80 * this.jammer.scale;
         this.jammer.heigh = 70;
         this.jammer.img.src = "images/rd-jammerCaida.png";
+        this.jammer.stop();
         this.cleanBlockers();
         this.track.valueScore = 0;
       }
@@ -125,7 +124,7 @@ Game.prototype.wonPoints = function (ctx, canvasSize) {
         if (!blocker.deathPoint) blocker.time = Date.now();
 
         blocker.deathPoint = true;
-        if (blocker.deathPoint && Date.now() - blocker.time > 500) {
+        if (blocker.deathPoint && Date.now() - blocker.time > 400) {
           this.sumaPuntosYLimpia(i, canvasSize);
         }
 
