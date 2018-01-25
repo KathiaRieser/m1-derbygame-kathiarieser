@@ -5,6 +5,7 @@ function Game() {
   this.track = new Track();
   this.jammer = new Jammer(110); // pasamos max speed
   this.blockers = [];
+  this.coins = [];
   //this.trackPosition = [0, 1, 2, 3];//aux to control options
 }
 
