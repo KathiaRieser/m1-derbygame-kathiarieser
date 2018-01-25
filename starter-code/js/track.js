@@ -1,5 +1,4 @@
 function Track(){
-
   this.textScore = "Score: ";
   this.textJam = "Jam: ";
   this.valueJam = 1;
@@ -9,8 +8,7 @@ function Track(){
 
 }
 
-Track.prototype.render = function(ctx, canvasSize){
-
+Track.prototype.render = function(){
   ctx.fillStyle = "#943126";
   ctx.fillRect(0, 0, canvasSize.w, canvasSize.h);
   ctx.fillStyle = "#FDFEFE";
@@ -25,14 +23,12 @@ Track.prototype.render = function(ctx, canvasSize){
   ctx.font = "15px 'Press Start 2P'";
   ctx.fillText(this.textJam, 260, 60);
   ctx.fillText(this.valueJam, 315, 60);
-
   ctx.fillText(this.textScore, 610, 60);
   ctx.fillText(this.valueScore, 700, 60);
 
 }
 
-Track.prototype.renderWin = function(ctx, canvasSize){
-
+Track.prototype.renderWin = function(){
    this.render(ctx, canvasSize);
    ctx.fillStyle = "#FDFEFE";
    ctx.font = "40px 'Press Start 2P'";

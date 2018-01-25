@@ -12,9 +12,10 @@ function Jammer(maxSpeed) {
   this.points = 0;
   this.delta = 0;
   this.won = false;
+  this.name = "";
 }
 
-Jammer.prototype.render = function (ctx) {
+Jammer.prototype.render = function () {
   this.x += this.speedX/1000*this.delta; 
   this.y += this.speedY/1000*this.delta; 
   

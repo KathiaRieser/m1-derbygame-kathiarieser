@@ -1,16 +1,15 @@
 function Game() {
-
   this.start = true;
   this.stop = false;
   this.level = 1;
   this.track = new Track();
   this.jammer = new Jammer(110); // pasamos max speed
   this.blockers = [];
+  //this.trackPosition = [0, 1, 2, 3];//aux to control options
 }
 
 
 Game.prototype.startGame = function () {
-
 
 }
 
@@ -19,66 +18,61 @@ Game.prototype.addBlocker = function (blocker) {
 
 }
 
-// Slecciona una posición aleatoria en el eje Y entre 180px y 490px
+//case 0:Selecciona una posición aleatoria en el eje Y entre 180px y 490px
+//case 1:Selecciona una posición aleatoria en el eje Y menor 30%
+//case 2:Selecciona una posición aleatoria en el eje Y entre el 30% y el 70%
+//case 3:Selecciona una posición aleatoria en el eje Y mayor que el 70%
 Game.prototype.givePositionY = function (pos) {
-
   var encontrado = false;
   var position;
   while (!encontrado) {
 
     position = Math.floor((Math.random() * 480)) + 61;
-    //Hay que tener en cuenta la altura de las bloqueadoras 60px - 5px de la línea
-    // 180 - 55   > posición < 480 -60
-    /*if (position > 125 && position < 420) {
+    switch (pos) {
 
-      encontrado = true;
-    }*/
-    switch(pos){
-      
       case 0:
-        
+        if (position > 140 && position < 420) {
+          encontrado = true;
+        }
+        break;
+
+      case 1:
+        if ((position > 140 && position < 420) && position < 480 * 0.3 + 61) {
+          encontrado = true;
+        }
+        break;
+
+      case 2:
+        if ((position > 140 && position < 420) && (position > 480 * 0.3 + 61 && position < 480 * 0.7 + 61)) {
+          encontrado = true;
+        }
+        break;
+
+      case 3:
+        if ((position > 140 && position < 420) && (position > 480 * 0.7 + 61)) {
+          encontrado = true;
+        }
+        break;
+     default:// genérico aleatorio
         if (position > 140 && position < 420) {
            encontrado = true;
-         }
-        
-        continue;
-        
-        case 1:
-        
-        if ((position > 140 && position < 420) &&  position< 480*0.5+61) {
-           encontrado = true;
-         }
-        
-        continue;
-        
-        case 2:
-        
-        if ((position > 140 && position < 420) &&  (position>480*0.5+61)) {
-           encontrado = true;
-         }
-        
-        continue;
-      
+        }
     }
-
-
-
   }
 
   return position;
-
 }
 
 //determinamos con el nivel el número de elementos que lanzamos (blocqueadoras)
-Game.prototype.giveLevel = function (level, canvasSize) {
+Game.prototype.giveLevel = function () {
 
-  switch (level) {
+  switch (this.level) {
 
     case 1:
-
-      for (var i = 1; i <= 3; i++) { //3 
-        var ptLanza = this.givePositionY(0);
-        var blocker = new Blocker(canvasSize, ptLanza);
+      //generamos 3 elementos en 3 posiciones diferentes(0-3 random position)
+      for (var i = 1; i <= 3; i++) {
+        var ptLanza = this.givePositionY(i);
+        var blocker = new Blocker(ptLanza);
         this.addBlocker(blocker);
 
       }
@@ -87,45 +81,42 @@ Game.prototype.giveLevel = function (level, canvasSize) {
 
 }
 
-Game.prototype.triggerBlockers = function (evel, canvasSize) {
-
-  this.giveLevel(evel, canvasSize);
+Game.prototype.triggerBlockers = function () {
+  this.giveLevel();
 
 }
 
-Game.prototype.renderBlockers = function (ctx) {
+Game.prototype.renderBlockers = function () {
 
   var speed = 1;
-  if(this.level === 2) speed = 3;
+  if (this.level === 2) speed = 3; //ampliar lógica por niveles futuros
   game.blockers.forEach(function (blocker) {
     speed += 1;
     blocker.update(speed);
-    blocker.render(ctx);
+    blocker.render();
 
   });
 
 }
 
 Game.prototype.cleanBlockers = function () {
-
   this.blockers = [];
 
 }
 
-Game.prototype.cleanBlockersByPosition = function (x) {
-
-  this.blockers.splice(x, 1);
+Game.prototype.cleanBlockersByPosition = function (pos) {
+  this.blockers.splice(pos, 1);
 }
 
 //hay que pasar las blockers
 Game.prototype.collisionDetection = function () {
-
   if (this.blockers.length > 0) {
 
     this.blockers.forEach(function (blocker) {
 
       if (this.jammer.x < blocker.x + blocker.width && this.jammer.x + this.jammer.width > blocker.x &&
-        this.jammer.y < blocker.y + blocker.heigh && this.jammer.y + this.jammer.heigh > blocker.y) {
+          this.jammer.y < blocker.y + blocker.heigh && this.jammer.y + this.jammer.heigh > blocker.y &&
+          blocker.deathPoint === false ) {
 
         this.jammer.width = 80 * this.jammer.scale;
         this.jammer.heigh = 70;
@@ -134,7 +125,7 @@ Game.prototype.collisionDetection = function () {
         this.cleanBlockers();
         this.jammer.points = 0;
         this.track.valueScore = 0;
-        if(this.level === 2){
+        if (this.level === 2) {
           this.level = 1;
           this.track.valueJam = 1;
         }
@@ -147,63 +138,68 @@ Game.prototype.collisionDetection = function () {
 
 }
 
-Game.prototype.wonPoints = function (ctx, canvasSize) {
+Game.prototype.wonPoints = function () {
 
   if (this.blockers.length > 0) {
 
     this.blockers.forEach(function (blocker, i) {
-      if (this.jammer.x > blocker.x + blocker.width) {
 
+      if (this.jammer.x > blocker.x + blocker.width) {
         blocker.img.src = "images/rd-point.png";
         if (!blocker.deathPoint) blocker.time = Date.now();
-
         blocker.deathPoint = true;
         if (blocker.deathPoint && Date.now() - blocker.time > 500) {
-          this.sumaPuntosYLimpia(i, canvasSize);
+          this.addPointsAndClean(i, canvasSize);
         }
-
       }
+
     }.bind(this));
+
   }
 }
 
 
-Game.prototype.sumaPuntosYLimpia = function (x, canvasSize) {
-
-  this.cleanBlockersByPosition(x); // SOLO PRUEBA
+Game.prototype.addPointsAndClean = function (pos, canvasSize) {
+  this.cleanBlockersByPosition(pos); // SOLO PRUEBA
   this.jammer.points += 1;
-
-  //score === 30 cambiamos de nivel
-  if(this.jammer.points === 30){
-
-      this.jammer.won = true;
-      this.track.valueScore = this.jammer.points;
-      this.cleanBlockers();
-
-  }else{
-
-  //score === 15 cambiamos de nivel
-  if(this.jammer.points === 15){
-    this.level = 2;
-    this.track.valueJam = 2;
-  } 
   this.track.valueScore = this.jammer.points;
-  //Lanzamos blockers tras putuar según el nivel
-  if(this.level === 1) {
-    var ptLanza = this.givePositionY(0);
-    var blocker = new Blocker(canvasSize, ptLanza);
-    this.addBlocker(blocker);
 
-  }else{
-  
-    var ptLanza = this.givePositionY(0);
-    var blocker = new Blocker(canvasSize, ptLanza);
-    blocker.update(2);
-    this.addBlocker(blocker);
-  }  
+  switch (this.jammer.points) {
+    case 30: //score: 30 => you won
+      this.jammer.won = true;
+      this.cleanBlockers();
+      break;
+    case 15: //score: 15 => level 2
+      this.level = 2;
+      this.track.valueJam = 2;
+      this.createBlockerByLevel(pos, canvasSize);
+      break;
+    default: //default => level 1
+      this.createBlockerByLevel(pos, canvasSize);
 
   }
- 
 
-  
+}
+
+Game.prototype.createBlockerByLevel = function (pos, canvasSize) {
+  var ptLanza;
+  var blocker;
+
+  switch (this.level) {
+    case 1:
+      //nivel 1: generación aleatoriamente => 0
+      ptLanza = this.givePositionY(0);
+      blocker = new Blocker(ptLanza);
+      this.addBlocker(blocker);
+      break;
+
+    case 2:
+      //nivel 2: generación en función de la posición del array que ocupa la blocker => (pos +1)
+      ptLanza = this.givePositionY(pos + 1);
+      blocker = new Blocker(ptLanza);
+      blocker.update(2); //add speed
+      this.addBlocker(blocker);
+      break;
+  }
+
 }

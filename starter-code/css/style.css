@@ -1,10 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 body {
   text-align: left;
-  /*background-image: url('../images/rd-background.jpg');
-  background-repeat: repeat;
-  background-size: contain, cover;*/
-  /*background-color: #111111;*/
+
 }
 
 body h1 {
@@ -25,6 +22,21 @@ body button {
   margin-bottom: 20px;
 }
 
+.header{
+  background-color: #FFF;
+  height: 50px;
+
+}
+
+.body{
+
+  background-image: url('../images/rd-back04.jpg');
+  /*background-repeat: repeat;*/
+  background-size: contain;
+  /*background-color: #111111;*/
+
+}
+
 .img-log{
   width: 200px;
 }
@@ -32,6 +44,8 @@ body button {
 #game-intro{
   width:200px;
 }
+
+
 
 #game-board{
   margin-left: 210px;

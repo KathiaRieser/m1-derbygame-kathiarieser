@@ -1,4 +1,4 @@
-function Blocker(canvasSize, ptLanzamiento) {
+function Blocker(ptLanzamiento) {
   this.x =  canvasSize.w-60; //480;
   this.y = ptLanzamiento ;//canvasSize.h/2; //h=500-20 = 480
   this.scale = 1; //158/319;
@@ -10,7 +10,7 @@ function Blocker(canvasSize, ptLanzamiento) {
   this.img.src = "images/rd-blocker.png"; 
 }
 
-Blocker.prototype.render = function(ctx){
+Blocker.prototype.render = function(){
   ctx.drawImage(this.img, this.x, this.y, this.width, this.heigh);
 };
 

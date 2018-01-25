@@ -9,7 +9,8 @@ var now = Date.now();
 var delta = 0;
 var game = new Game();
 
-game.triggerBlockers(game.level, canvasSize);
+//Creating array of 3
+game.triggerBlockers();
 
 function update() {
   then = now;
@@ -18,16 +19,16 @@ function update() {
   game.jammer.delta = delta;
 
   ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
-  if(game.jammer.won){
-    game.track.renderWin(ctx, canvasSize);
-  }else{
-    game.track.render(ctx, canvasSize);
-    game.collisionDetection(ctx);
-    game.wonPoints(ctx, canvasSize);
-    game.jammer.render(ctx);
-    game.renderBlockers(ctx);
+  if (game.jammer.won) {
+    game.track.renderWin();
+  } else {
+    game.track.render();
+    game.collisionDetection();
+    game.wonPoints();
+    game.jammer.render();
+    game.renderBlockers();
   }
-  
+
   requestAnimationFrame(update);
 
 }
