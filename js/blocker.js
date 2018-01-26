@@ -8,6 +8,8 @@ function Blocker(ptLanzamiento) {
   this.time = Date.now();
   this.img = new Image();
   this.img.src = "images/rd-blocker.png"; 
+  this.pointSound = new Audio("sounds/rd-addPoint.wav");
+  this.pointSound.volume = 0.1;
   //this.speed = 1;
 }
 

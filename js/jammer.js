@@ -13,6 +13,9 @@ function Jammer(maxSpeed) {
   this.delta = 0;
   this.won = false;
   this.name = "";
+  //this.blockSound = new Audio("sounds/rd-block.ogg");
+  this.blockSound = new Audio("sounds/rd-blockGeek.wav  ");
+  this.blockSound.volume = 0.2;
 }
 
 Jammer.prototype.render = function () {

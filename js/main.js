@@ -10,6 +10,8 @@ var now;
 var delta;
 var game ;
 var request;
+var pointSound = new Audio("sounds/rd-addPoint.wav");
+pointSound.volume = 0.2;
 
 $('#start-button').on('click', function (){
 

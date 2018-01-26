@@ -125,6 +125,7 @@ Game.prototype.collisionDetection = function () {
         this.jammer.width = 80 * this.jammer.scale;
         this.jammer.heigh = 70;
         this.jammer.img.src = "images/rd-jammerCaida.png";
+        this.jammer.blockSound.play();
         this.jammer.stop();
         this.cleanBlockers();
         this.jammer.points = 0;
@@ -149,10 +150,13 @@ Game.prototype.wonPoints = function () {
     this.blockers.forEach(function (blocker, i) {
 
       if (this.jammer.x > blocker.x + blocker.width) {
+        blocker.pointSound.play();
+        //pointSound.play();
         blocker.img.src = "images/rd-point.png";
+        
         if (!blocker.deathPoint) blocker.time = Date.now();
         blocker.deathPoint = true;
-        if (blocker.deathPoint && Date.now() - blocker.time > 500) {
+        if (blocker.deathPoint && Date.now() - blocker.time > 300) {
           this.addPointsAndClean(i, canvasSize);
         }
       }
