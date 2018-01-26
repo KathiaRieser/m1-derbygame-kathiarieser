@@ -8,6 +8,7 @@ function Blocker(ptLanzamiento) {
   this.time = Date.now();
   this.img = new Image();
   this.img.src = "images/rd-blocker.png"; 
+  //this.speed = 1;
 }
 
 Blocker.prototype.render = function(){
@@ -18,5 +19,6 @@ Blocker.prototype.update = function(speed){
   this.x -= speed; 
 
 }
+
 
 

@@ -7,6 +7,7 @@ function Track(){
   //this.img.src = "images/rd-jammerDrch.png";
   //this.imgPeople = new Image();
   this.img.src = "images/rd-grada.png";
+  this.imgWon = new Image();;
 
 }
 
@@ -22,7 +23,6 @@ Track.prototype.render = function(){
     x += 110;
   }
    
-
   //marcador
   ctx.fillStyle = "#FDFEFE";
   ctx.fillRect(250, 20, canvasSize.w/2-5, 60); //x,y
@@ -54,8 +54,8 @@ Track.prototype.renderWin = function(){
    this.render(ctx, canvasSize);
    ctx.fillStyle = "#FDFEFE";
    ctx.font = "40px 'Press Start 2P'";
-   this.img.src = "images/rd-jammerDrch.png";
-   ctx.drawImage(this.img, canvasSize.w/2-80, 240, 100, 100); 
+   this.imgWon.src = "images/rd-jammerDrch.png";
+   ctx.drawImage(this.imgWon, canvasSize.w/2-80, 240, 100, 100); 
    ctx.fillText("YOU WIN!!", canvasSize.w/2-180, 400);
 
 }

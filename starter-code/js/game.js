@@ -11,7 +11,10 @@ function Game() {
 
 
 Game.prototype.startGame = function () {
-
+  this.level = 1;
+  this.jammer.points = 0;
+  this.won = false;
+  this.img.src = "images/rd-jammerDrch.png"; 
 }
 
 Game.prototype.addBlocker = function (blocker) {
@@ -191,6 +194,7 @@ Game.prototype.createBlockerByLevel = function (pos, canvasSize) {
       //nivel 1: generación aleatoriamente => 0
       ptLanza = this.givePositionY(0);
       blocker = new Blocker(ptLanza);
+      //blocker.update(1); 
       this.addBlocker(blocker);
       break;
 

@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var canvasSize = {
@@ -5,13 +6,22 @@ var canvasSize = {
   h: canvas.height
 };
 
-var now = Date.now();
-var delta = 0;
-var game = new Game();
+var now;
+var delta;
+var game ;
+var request;
 
-//Creating array of 3
+$('#start-button').on('click', function (){
+
+now = Date.now();
+delta = 0;
+//Creating array of 3 
+game = new Game();
 game.triggerBlockers();
+window.cancelAnimationFrame(request);
+request = requestAnimationFrame(update);
 
+});
 function update() {
   then = now;
   now = Date.now();
@@ -29,10 +39,14 @@ function update() {
     game.renderBlockers();
   }
 
-  requestAnimationFrame(update);
+  request = requestAnimationFrame(update);
 
 }
-requestAnimationFrame(update);
+
+//request = requestAnimationFrame(update);
+
+
+
 
 $(document).keydown(function (e) {
   game.jammer.moveJammer(e.keyCode);
@@ -41,5 +55,4 @@ $(document).keydown(function (e) {
 
 $(document).keyup(function (e) {
   game.jammer.stop();
-
 });
